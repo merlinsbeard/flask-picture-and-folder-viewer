@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+{% block extrahead %}
+<style>
+li {width:150px;  height: 150px;}
+li img{ width:100%}
+
+.album{ margin: 1em; overlay:hidden; min-height:10em;}
+</style>
+
+{% endblock %}
+{%block body %}
+<div class="container">
+    <ul>
+    {% for i in dicts['files'] %}
+        {{ i }}
+        <li>
+        <a href="{{ url_for('static', filename=dicts.relative_path+'/'+i) }}">
+             <img src="{{ url_for('static', filename=dicts.relative_path+'/'+i) }}">
+         </a>
+         </li>
+    {% endfor %}
+</ul>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+from flask import Flask, request, session, g, redirect, url_for, abort, \
+        render_template, request, flash
+
+from werkzeug.utils import secure_filename
+import os
+
+DATABASE = False
+
+app= Flask(__name__)
+app.config.from_object(__name__)
+
+def get_root_dirs_files():
+    main_path = os.path.dirname(os.path.abspath('__file__'))
+    main_path = main_path + '/static/uploads/Pictures'
+    root_dirs_files = {}
+    for root, dirs, files in os.walk(main_path):
+        new_key = root.replace(main_path,"")
+        root_dirs_files[new_key] = {'dirs':dirs,'files':files}
+    #for old in root_dirs_files:
+    #    new = r.replace(main_path,"")
+    #    root_dirs_files[new] = root_dirs_files.pop[old]
+    return root_dirs_files
+
+
+@app.route('/')
+def index():
+    #return render_template('index.html')
+    r= get_root_dirs_files()
+    dicts = 'hello'
+    dicts =r
+    return render_template('index.html', dicts=dicts)
+
+
+if __name__ == '__main__':
+    app.debug == True
+    app.run(host='0.0.0.0',port=5001)

@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% block extrahead %}
+<style>
+li {width:150px;  height: 150px;}
+li img{ width:100%}
+
+</style>
+
+{% endblock %}
+{%block body %}
+<div class="container">
+
+    {{ dicts['uploads/Pictures'] }}
+
+{% for root in dicts %}
+<div class="album">
+    <h2>Album Name: <a href="{{ url_for('show_album',slug=root)}}"><strong>{{ dicts[root].folder_name }}</strong></em></a></h2><br>
+    
+    <ul>
+    {% for i in dicts[root]['files'] %}
+        {% if root =="uploads-pictures" %}
+        {{ dicts[root].relative_path }}
+        <li>
+            <a href="{{ url_for('static', filename=dicts[root].relative_path+'/'+i)}}">
+                <img src="{{ url_for('static', filename=dicts[root].relative_path+'/'+i)}}" class="img-rounded">
+            </a>
+        </li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+</div>
+{% endfor %}
+
+</div>
+{% endblock %}
